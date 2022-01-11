@@ -2,27 +2,27 @@ import 'package:equatable/equatable.dart';
 import 'package:i_beer/common/common.dart';
 
 class MetaViewModel extends Equatable {
-  final int id;
-  final int name;
+  final int count;
+  final int totalCount;
 
   const MetaViewModel({
-    required this.id,
-    required this.name,
+    required this.count,
+    required this.totalCount,
   });
 
   @override
   List<Object> get props => [
-        id,
-        name,
+        count,
+        totalCount,
       ];
 
   factory MetaViewModel.orThrow({
-    required int? id,
-    required int? name,
+    required int? count,
+    required int? totalCount,
   }) {
     return MetaViewModel(
-      id: validateNotNull('id', id),
-      name: validateNotNull('name', name),
+      count: validateNotNull('count', count),
+      totalCount: validateNotNull('totalCount', totalCount),
     );
   }
 }

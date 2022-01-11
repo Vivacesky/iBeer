@@ -7,7 +7,6 @@ export 'repositories/beer_repository.dart';
 
 //services
 export 'services/beer_service.dart';
-export 'services/beer_local_service.dart';
 export 'services/beer_remote_service.dart';
 
 //dtos

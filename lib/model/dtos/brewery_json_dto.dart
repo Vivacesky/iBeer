@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'brewery_json_dto.g.dart';
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class BreweryJsonDto {
   String? id;
   String? name;
