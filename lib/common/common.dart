@@ -1,4 +1,5 @@
 export 'theme.dart';
+export 'validation.dart';
 
 //dtos
 export 'dtos/meta_json_dto.dart';
