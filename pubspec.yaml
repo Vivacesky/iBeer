@@ -29,5 +29,3 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
-  #https://itnext.io/mvvm-in-flutter-using-providers-409c3c7e654
