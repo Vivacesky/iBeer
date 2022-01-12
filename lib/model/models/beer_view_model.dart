@@ -5,7 +5,7 @@ import 'package:i_beer/model/model.dart';
 class BeerViewModel extends Equatable {
   final String id;
   final String name;
-  final int rating;
+  final int? rating;
   final String thumbImageUrl;
   final String imageUrl;
   final BreweryViewModel brewery;
@@ -13,14 +13,14 @@ class BeerViewModel extends Equatable {
   const BeerViewModel({
     required this.id,
     required this.name,
-    required this.rating,
+    this.rating,
     required this.thumbImageUrl,
     required this.imageUrl,
     required this.brewery,
   });
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         id,
         name,
         rating,
@@ -40,7 +40,7 @@ class BeerViewModel extends Equatable {
     return BeerViewModel(
       id: validateNotNull('id', id),
       name: validateNotNull('name', name),
-      rating: validateNotNull("rating", rating),
+      rating: rating,
       thumbImageUrl: validateNotNull("thumbImageUrl", thumbImageUrl),
       imageUrl: validateNotNull("imageUrl", imageUrl),
       brewery: validateNotNull("brewery", brewery),

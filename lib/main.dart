@@ -6,6 +6,8 @@ import 'package:i_beer/view/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'common/common.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final sharedPreference = await SharedPreferences.getInstance();
@@ -29,6 +31,7 @@ class MyApp extends StatelessWidget {
     final login = AuthRemoteService(Provider.of<Dio>(context));
     return MaterialApp(
       title: 'iBeer',
+      theme: iBeerTheme,
       home: LoginBuilder(
         future: login.login(),
         child: const HomeScreen(),

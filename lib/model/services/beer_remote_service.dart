@@ -52,22 +52,24 @@ class BeerRemoteService extends CacheService implements BeerService {
 
   @override
   Future<BaseResponseJsonDto<List<BreweryJsonDto>>?> getBreweries() async {
+    late Map<String, dynamic> json;
     if (await canRemote) {
       final response = await client.get("$_baseUrl/breweries");
       await setString("breweries", response.data.toString());
-      return response.data;
+      json = response.data;
     } else {
       final cache = getString("breweries");
       if (cache == null) {
         throw NetworkException();
       }
-      return BaseResponseJsonDto.fromJson(
-        jsonDecode(cache),
-        (breweries) {
-          return (breweries as List<dynamic>).map((e) => BreweryJsonDto.fromJson(e)).toList();
-        },
-      );
+      json = jsonDecode(cache);
     }
+    return BaseResponseJsonDto.fromJson(
+      json,
+      (breweries) {
+        return (breweries as List<dynamic>).map((e) => BreweryJsonDto.fromJson(e)).toList();
+      },
+    );
   }
 
   Future<bool> get canRemote async {
