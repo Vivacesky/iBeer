@@ -23,6 +23,9 @@ class BeerDetailBody extends StatelessWidget {
                 vm.beerViewModel.thumbImageUrl,
                 fit: BoxFit.fitWidth,
                 width: double.infinity,
+                errorBuilder: (c, o, e) {
+                  return FlutterLogo(size: MediaQuery.of(context).size.width);
+                },
               ),
             ),
             Positioned(

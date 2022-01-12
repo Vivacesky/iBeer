@@ -43,7 +43,7 @@ class BeerRemoteService extends CacheService implements BeerService {
     late Map<String, dynamic> json;
     if (await canRemote) {
       final response = await client.get("$_baseUrl/beers");
-      await setString("beers", response.data.toString());
+      await setString("beers", jsonEncode(response.data));
       json = response.data;
     } else {
       final cache = getString("beers");
@@ -65,7 +65,7 @@ class BeerRemoteService extends CacheService implements BeerService {
     late Map<String, dynamic> json;
     if (await canRemote) {
       final response = await client.get("$_baseUrl/breweries");
-      await setString("breweries", response.data.toString());
+      await setString("breweries", jsonEncode(response.data));
       json = response.data;
     } else {
       final cache = getString("breweries");

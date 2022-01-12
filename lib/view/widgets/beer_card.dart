@@ -30,7 +30,12 @@ class BeerCard extends StatelessWidget {
                     child: Center(
                       child: Hero(
                         tag: beerViewModel.id,
-                        child: Image.network(beerViewModel.thumbImageUrl),
+                        child: Image.network(
+                          beerViewModel.thumbImageUrl,
+                          errorBuilder: (c, o, e) {
+                            return const FlutterLogo(size: 50);
+                          },
+                        ),
                       ),
                     ),
                   ),
