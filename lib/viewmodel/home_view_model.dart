@@ -10,6 +10,12 @@ enum ListStyle {
 class HomeViewModel extends ChangeNotifier {
   final CachedBeerRepository cachedBeerRepository;
 
+  HomeViewModel(this.cachedBeerRepository) {
+    _loading = true;
+    _baseResponseViewModel = null;
+    getBeers();
+  }
+
   //state
   late bool _loading;
   BaseResponseViewModel<List<BeerViewModel>>? _baseResponseViewModel;
@@ -23,21 +29,15 @@ class HomeViewModel extends ChangeNotifier {
 
   ListStyle get listStyle => _listStyle;
 
-  List<BeerViewModel>? get beers => _beers;
+  List<BeerViewModel> get beers => _beers;
 
-  List<BeerViewModel>? get row1 => beers?.getRange(0, (beers?.length ?? 0) ~/ 2).toList();
+  List<BeerViewModel> get row1 => beers.getRange(0, beers.length ~/ 2).toList();
 
-  List<BeerViewModel>? get row2 => beers?.getRange((beers?.length ?? 0) ~/ 2, beers?.length ?? 0).toList();
+  List<BeerViewModel> get row2 => beers.getRange(beers.length ~/ 2, beers.length).toList();
 
   MetaViewModel? get meta => _baseResponseViewModel?.meta;
 
   bool get onlyRated => _onlyRated;
-
-  HomeViewModel(this.cachedBeerRepository) {
-    _loading = true;
-    _baseResponseViewModel = null;
-    getBeers();
-  }
 
   //setters
   void setRated(bool onlyRated) {

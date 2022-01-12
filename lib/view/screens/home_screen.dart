@@ -33,7 +33,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               );
             },
-            icon: const Icon(Ibeer.beer_solid),
+            icon: const Icon(Ibeer.beerSolid),
           )
         ],
       ),

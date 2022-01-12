@@ -37,7 +37,7 @@ class _BeerGameScreenState extends State<BeerGameScreen> {
                 height: 200,
                 color: color,
                 child: const Icon(
-                  Ibeer.beer_solid,
+                  Ibeer.beerSolid,
                   size: 150,
                   color: Colors.yellow,
                 ),

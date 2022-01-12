@@ -4,6 +4,10 @@ import 'package:i_beer/model/model.dart';
 class DetailViewModel extends ChangeNotifier {
   final CachedBeerRepository cachedBeerRepository;
 
+  DetailViewModel(this.cachedBeerRepository, this._beerViewModel) {
+    _loading = false;
+  }
+
   //state
   late bool _loading;
   BeerViewModel _beerViewModel;
@@ -14,12 +18,7 @@ class DetailViewModel extends ChangeNotifier {
 
   BeerViewModel get beerViewModel => _beerViewModel;
 
-  DetailViewModel(this.cachedBeerRepository, this._beerViewModel) {
-    _loading = false;
-  }
-
   //setters
-
   void setLoading(bool loading) {
     _loading = loading;
     notifyListeners();

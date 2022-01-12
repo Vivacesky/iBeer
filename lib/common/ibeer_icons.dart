@@ -21,5 +21,5 @@ class Ibeer {
   static const _kFontFam = 'Ibeer';
   static const String? _kFontPkg = null;
 
-  static const IconData beer_solid = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData beerSolid = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
