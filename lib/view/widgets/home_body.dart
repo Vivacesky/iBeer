@@ -79,70 +79,80 @@ class HomeBody extends StatelessWidget {
       );
     } else if (vm.listStyle == ListStyle.list) {
       child = Column(
-        children: vm.beers
-            .map(
-              (b) => ListTile(
-                title: Text(b.name),
-                subtitle: Text(b.brewery?.name ?? "-"),
-                leading: Hero(
-                  tag: b.id,
-                  child: Image.network(
-                    b.thumbImageUrl,
-                    errorBuilder: (c, o, e) {
-                      return const FlutterLogo(size: 50);
-                    },
-                  ),
-                ),
-                trailing: Text(b.rating != null ? b.rating.toString() : "-"),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BeerDetailScreen(beerViewModel: b),
+        children: ListTile.divideTiles(
+          context: context,
+          tiles: vm.beers
+              .map(
+                (b) => ListTile(
+                  title: Text(b.name),
+                  subtitle: Text(b.brewery?.name ?? "-"),
+                  leading: Hero(
+                    tag: b.id,
+                    child: Image.network(
+                      b.thumbImageUrl,
+                      errorBuilder: (c, o, e) {
+                        return const FlutterLogo(size: 50);
+                      },
                     ),
-                  );
-                },
-              ),
-            )
-            .toList(),
+                  ),
+                  trailing: Text(b.rating != null ? b.rating.toString() : "-"),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BeerDetailScreen(beerViewModel: b),
+                      ),
+                    );
+                  },
+                ),
+              )
+              .toList(),
+        ).toList(),
       );
     } else {
       child = const SizedBox();
     }
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 12.0, right: 12.0, top: 16.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: SearchBeer(
-                    onChanged: (newValue) {
-                      vm.searchBeers(newValue);
+    return RefreshIndicator(
+      onRefresh: () async {
+        vm.refreshBeers();
+      },
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: 3, child: vm.isRefreshing ? const LinearProgressIndicator() : const SizedBox()),
+            Padding(
+              padding: const EdgeInsets.only(left: 12.0, right: 12.0, top: 16.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: SearchBeer(
+                      onChanged: (newValue) {
+                        vm.searchBeers(newValue);
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 12.0),
+                  ElevatedButton(
+                    onPressed: () {
+                      vm.setRated(!vm.onlyRated);
                     },
+                    child: Icon(
+                      Icons.verified,
+                      color: vm.onlyRated ? Colors.yellow : Colors.black,
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      primary: vm.onlyRated ? Colors.yellow.withOpacity(0.1) : Colors.white,
+                      fixedSize: const Size(50, 50),
+                    ),
                   ),
-                ),
-                const SizedBox(width: 12.0),
-                ElevatedButton(
-                  onPressed: () {
-                    vm.setRated(!vm.onlyRated);
-                  },
-                  child: Icon(
-                    Icons.verified,
-                    color: vm.onlyRated ? Colors.yellow : Colors.black,
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    elevation: 0,
-                    primary: vm.onlyRated ? Colors.yellow.withOpacity(0.1) : Colors.white,
-                    fixedSize: const Size(50, 50),
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          child,
-        ],
+            const SizedBox(height: 12.0),
+            child,
+          ],
+        ),
       ),
     );
   }

@@ -18,6 +18,7 @@ class HomeViewModel extends ChangeNotifier {
 
   //state
   late bool _loading;
+  bool _refreshing = false;
   BaseResponseViewModel<List<BeerViewModel>>? _baseResponseViewModel;
   Object? exception;
   bool _onlyRated = false;
@@ -26,6 +27,8 @@ class HomeViewModel extends ChangeNotifier {
 
   //getters
   bool get isLoading => _loading;
+
+  bool get isRefreshing => _refreshing;
 
   ListStyle get listStyle => _listStyle;
 
@@ -55,6 +58,11 @@ class HomeViewModel extends ChangeNotifier {
 
   void setLoading(bool loading) {
     _loading = loading;
+    notifyListeners();
+  }
+
+  void setRefreshing(bool refreshing) {
+    _refreshing = refreshing;
     notifyListeners();
   }
 
@@ -92,6 +100,16 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   //api
+  void refreshBeers() async {
+    setRefreshing(true);
+    var response = await cachedBeerRepository.getBeers();
+    response.fold(
+      (l) => setException(l),
+      (r) => setResponse(r),
+    );
+    setRefreshing(false);
+  }
+
   void getBeers() async {
     setLoading(true);
     var response = await cachedBeerRepository.getBeers();

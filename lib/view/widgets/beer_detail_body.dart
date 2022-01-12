@@ -22,7 +22,6 @@ class BeerDetailBody extends StatelessWidget {
             expandedHeight: 300.0,
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
-              title: Text(vm.beerViewModel.name),
               background: Hero(
                 tag: vm.beerViewModel.id,
                 child: Image.network(
@@ -81,7 +80,7 @@ class BeerDetailBody extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodyText2,
                         ),
                       const SizedBox(height: 20.0),
-                      TextButton(
+                      ElevatedButton(
                         child: Wrap(
                           children: [
                             if (vm.isLoading) const SizedBox(width: 20, height: 20, child: CircularProgressIndicator()),
@@ -94,11 +93,9 @@ class BeerDetailBody extends StatelessWidget {
                             context: context,
                             builder: (context) {
                               return Container(
+                                margin: const EdgeInsets.all(12.0),
                                 decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20.0),
-                                    topRight: Radius.circular(20.0),
-                                  ),
+                                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
                                   color: Colors.grey,
                                 ),
                                 height: 200,

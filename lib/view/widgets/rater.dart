@@ -67,10 +67,12 @@ class _RaterState extends State<Rater> {
           ],
         ),
         const SizedBox(height: 50),
-        MaterialButton(
-          onPressed: () {
-            Navigator.of(context).pop(rating);
-          },
+        TextButton(
+          onPressed: rating == 0
+              ? null
+              : () {
+                  Navigator.of(context).pop(rating);
+                },
           child: const Text("Save"),
         ),
       ],

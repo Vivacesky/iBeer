@@ -29,6 +29,18 @@ class BeerViewModel extends Equatable {
         brewery,
       ];
 
+  BeerViewModel copyWith({
+    int? rating,
+  }) =>
+      BeerViewModel(
+        rating: rating ?? this.rating,
+        id: id,
+        name: name,
+        thumbImageUrl: thumbImageUrl,
+        imageUrl: imageUrl,
+        brewery: brewery,
+      );
+
   factory BeerViewModel.orThrow({
     required String? id,
     required String? name,

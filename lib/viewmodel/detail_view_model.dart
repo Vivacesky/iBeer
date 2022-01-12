@@ -4,7 +4,10 @@ import 'package:i_beer/model/model.dart';
 class DetailViewModel extends ChangeNotifier {
   final CachedBeerRepository cachedBeerRepository;
 
-  DetailViewModel(this.cachedBeerRepository, this._beerViewModel) {
+  DetailViewModel(
+    this.cachedBeerRepository,
+    this._beerViewModel,
+  ) {
     _loading = false;
   }
 
@@ -30,7 +33,7 @@ class DetailViewModel extends ChangeNotifier {
   }
 
   void setResponse(BeerViewModel beerViewModel) {
-    _beerViewModel = beerViewModel;
+    _beerViewModel = _beerViewModel.copyWith(rating: beerViewModel.rating);
     notifyListeners();
   }
 
