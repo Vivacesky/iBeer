@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 ThemeData get iBeerTheme {
   return ThemeData(
+    colorScheme: ColorScheme.fromSwatch(
+      primarySwatch: Colors.grey,
+    ),
     appBarTheme: const AppBarTheme(color: Colors.black),
     textTheme: const TextTheme(
       headline1: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold),

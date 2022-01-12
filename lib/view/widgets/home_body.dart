@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:i_beer/common/common.dart';
 import 'package:i_beer/view/view.dart';
+import 'package:i_beer/view/widgets/search_beer.dart';
 import 'package:i_beer/viewmodel/home_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -21,20 +22,10 @@ class HomeBody extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        hintText: 'Search beers',
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.white),
-                          borderRadius: BorderRadius.circular(25.7),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.white),
-                          borderRadius: BorderRadius.circular(25.7),
-                        ),
-                      ),
+                    child: SearchBeer(
+                      onChanged: (newValue) {
+                        vm.searchBeers(newValue);
+                      },
                     ),
                   ),
                   const SizedBox(width: 12.0),

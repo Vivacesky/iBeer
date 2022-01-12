@@ -63,6 +63,21 @@ class HomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void searchBeers(String value) {
+    _beers = (_baseResponseViewModel?.data ?? [])
+        .where(
+          (b) {
+            if (_onlyRated && b.rating == null) {
+              return false;
+            }
+            return true;
+          },
+        )
+        .where((element) => element.name.toLowerCase().contains(value.toLowerCase()))
+        .toList();
+    notifyListeners();
+  }
+
   //api
   void getBeers() async {
     setLoading(true);
