@@ -21,7 +21,7 @@ class BeerRemoteService extends CacheService implements BeerService {
   @override
   Future<BaseResponseJsonDto<BeerJsonDto>?> rateBeer(String beerId) async {
     if (await canRemote) {
-      final response = await client.put<BaseResponseJsonDto<BeerJsonDto>>("$_baseUrl/beers/$beerId");
+      final response = await client.put("$_baseUrl/beers/$beerId");
       return response.data;
     }
     //not supported offline
@@ -30,28 +30,30 @@ class BeerRemoteService extends CacheService implements BeerService {
 
   @override
   Future<BaseResponseJsonDto<List<BeerJsonDto>>?> getBeers() async {
+    late Map<String, dynamic> json;
     if (await canRemote) {
-      final response = await client.get<BaseResponseJsonDto<List<BeerJsonDto>>>("$_baseUrl/beers");
+      final response = await client.get("$_baseUrl/beers");
       await setString("beers", response.data.toString());
-      return response.data;
+      json = response.data;
     } else {
       final cache = getString("beers");
       if (cache == null) {
         throw NetworkException();
       }
-      return BaseResponseJsonDto.fromJson(
-        jsonDecode(cache),
-        (beers) {
-          return (beers as List<dynamic>).map((e) => BeerJsonDto.fromJson(e)).toList();
-        },
-      );
+      json = jsonDecode(cache);
     }
+    return BaseResponseJsonDto.fromJson(
+      json,
+      (beers) {
+        return (beers as List<dynamic>).map((e) => BeerJsonDto.fromJson(e)).toList();
+      },
+    );
   }
 
   @override
   Future<BaseResponseJsonDto<List<BreweryJsonDto>>?> getBreweries() async {
     if (await canRemote) {
-      final response = await client.get<BaseResponseJsonDto<List<BreweryJsonDto>>>("$_baseUrl/breweries");
+      final response = await client.get("$_baseUrl/breweries");
       await setString("breweries", response.data.toString());
       return response.data;
     } else {

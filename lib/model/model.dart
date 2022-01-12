@@ -8,6 +8,7 @@ export 'repositories/beer_repository.dart';
 //services
 export 'services/beer_service.dart';
 export 'services/beer_remote_service.dart';
+export 'services/auth_service.dart';
 
 //dtos
 export 'dtos/beer_json_dto.dart';
