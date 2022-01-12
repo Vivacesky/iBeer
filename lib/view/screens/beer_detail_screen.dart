@@ -11,12 +11,8 @@ class BeerDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return DetailProvider(
       beerViewModel: beerViewModel,
-      child: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(beerViewModel.name),
-        ),
-        body: const BeerDetailBody(),
+      child: const Scaffold(
+        body: BeerDetailBody(),
       ),
     );
   }

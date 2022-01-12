@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:i_beer/model/model.dart';
 import 'package:i_beer/view/screens/home_screen.dart';
+import 'package:i_beer/view/view.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
       theme: iBeerTheme,
       home: LoginBuilder(
         future: login.login(),
-        child: const HomeScreen(),
+        child: const HomeProvider(child: HomeScreen()),
       ),
     );
   }

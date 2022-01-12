@@ -14,6 +14,100 @@ class HomeBody extends StatelessWidget {
     if (vm.exception != null) return BasicErrorBody(object: vm.exception!);
     if (vm.isLoading) return const Center(child: CircularProgressIndicator());
     if (vm.beers != null) {
+      late Widget child;
+      if (vm.listStyle == ListStyle.grid) {
+        child = Row(
+          children: [
+            Column(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width / 2,
+                  child: FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Found",
+                            style: Theme.of(context).textTheme.headline1,
+                          ),
+                          Text(
+                            "${vm.meta?.totalCount} Results",
+                            style: Theme.of(context).textTheme.headline1,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                ...vm.row1!
+                    .map(
+                      (b) => BeerCard(
+                        beerViewModel: b,
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BeerDetailScreen(beerViewModel: b),
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                    .toList()
+              ],
+            ),
+            Column(
+              children: vm.row2!
+                  .map(
+                    (b) => BeerCard(
+                      beerViewModel: b,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BeerDetailScreen(beerViewModel: b),
+                          ),
+                        );
+                      },
+                    ),
+                  )
+                  .toList(),
+            ),
+          ],
+        );
+      } else if (vm.listStyle == ListStyle.list) {
+        child = Column(
+          children: (vm.beers ?? [])
+              .map(
+                (b) => ListTile(
+                  title: Text(b.name),
+                  subtitle: Text(b.brewery?.name ?? "-"),
+                  leading: Hero(
+                    tag: b.id,
+                    child: Image.network(
+                      b.thumbImageUrl,
+                      errorBuilder: (c, o, e) {
+                        return const FlutterLogo(size: 50);
+                      },
+                    ),
+                  ),
+                  trailing: Text(b.rating != null ? b.rating.toString() : "-"),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BeerDetailScreen(beerViewModel: b),
+                      ),
+                    );
+                  },
+                ),
+              )
+              .toList(),
+        );
+      }
       return SingleChildScrollView(
         child: Column(
           children: [
@@ -46,68 +140,7 @@ class HomeBody extends StatelessWidget {
                 ],
               ),
             ),
-            Row(
-              children: [
-                Column(
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 2,
-                      child: FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Found",
-                                style: Theme.of(context).textTheme.headline1,
-                              ),
-                              Text(
-                                "${vm.meta?.totalCount} Results",
-                                style: Theme.of(context).textTheme.headline1,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    ...vm.row1!
-                        .map(
-                          (b) => BeerCard(
-                            beerViewModel: b,
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => BeerDetailScreen(beerViewModel: b),
-                                ),
-                              );
-                            },
-                          ),
-                        )
-                        .toList()
-                  ],
-                ),
-                Column(
-                  children: vm.row2!
-                      .map(
-                        (b) => BeerCard(
-                          beerViewModel: b,
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => BeerDetailScreen(beerViewModel: b),
-                              ),
-                            );
-                          },
-                        ),
-                      )
-                      .toList(),
-                ),
-              ],
-            ),
+            child,
           ],
         ),
       );

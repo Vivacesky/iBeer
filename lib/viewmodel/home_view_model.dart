@@ -2,6 +2,11 @@ import 'package:flutter/widgets.dart';
 import 'package:i_beer/common/common.dart';
 import 'package:i_beer/model/model.dart';
 
+enum ListStyle {
+  grid,
+  list,
+}
+
 class HomeViewModel extends ChangeNotifier {
   final CachedBeerRepository cachedBeerRepository;
 
@@ -11,9 +16,12 @@ class HomeViewModel extends ChangeNotifier {
   Object? exception;
   bool _onlyRated = false;
   List<BeerViewModel> _beers = [];
+  ListStyle _listStyle = ListStyle.grid;
 
   //getters
   bool get isLoading => _loading;
+
+  ListStyle get listStyle => _listStyle;
 
   List<BeerViewModel>? get beers => _beers;
 
@@ -60,6 +68,11 @@ class HomeViewModel extends ChangeNotifier {
 
   void setException(Object object) {
     exception = object;
+    notifyListeners();
+  }
+
+  void switchListStyle() {
+    _listStyle = ListStyle.grid == _listStyle ? ListStyle.list : ListStyle.grid;
     notifyListeners();
   }
 
