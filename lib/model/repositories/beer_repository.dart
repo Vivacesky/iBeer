@@ -61,6 +61,7 @@ class CachedBeerRepository implements BeerRepository {
     return MetaViewModel.orThrow(
       count: dto?.count,
       totalCount: dto?.totalCount,
+      type: dto?.type,
     );
   }
 

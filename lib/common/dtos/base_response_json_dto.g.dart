@@ -11,9 +11,7 @@ BaseResponseJsonDto<T> _$BaseResponseJsonDtoFromJson<T>(
   T Function(Object? json) fromJsonT,
 ) =>
     BaseResponseJsonDto<T>(
-      meta: json['meta'] == null
-          ? null
-          : MetaJsonDto.fromJson(json['meta'] as Map<String, dynamic>),
+      meta: json['meta'] == null ? null : MetaJsonDto.fromJson(json['meta'] as Map<String, dynamic>),
       data: _$nullableGenericFromJson(json['data'], fromJsonT),
     );
 

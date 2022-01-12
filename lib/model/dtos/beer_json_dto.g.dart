@@ -12,13 +12,10 @@ BeerJsonDto _$BeerJsonDtoFromJson(Map<String, dynamic> json) => BeerJsonDto(
       rating: json['rating'] as int?,
       thumbImageUrl: json['thumbImageUrl'] as String?,
       imageUrl: json['imageUrl'] as String?,
-      brewery: json['brewery'] == null
-          ? null
-          : BreweryJsonDto.fromJson(json['brewery'] as Map<String, dynamic>),
+      brewery: json['brewery'] == null ? null : BreweryJsonDto.fromJson(json['brewery'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$BeerJsonDtoToJson(BeerJsonDto instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$BeerJsonDtoToJson(BeerJsonDto instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'rating': instance.rating,

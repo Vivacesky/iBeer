@@ -6,8 +6,7 @@ part of 'brewery_json_dto.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-BreweryJsonDto _$BreweryJsonDtoFromJson(Map<String, dynamic> json) =>
-    BreweryJsonDto(
+BreweryJsonDto _$BreweryJsonDtoFromJson(Map<String, dynamic> json) => BreweryJsonDto(
       id: json['id'] as String?,
       name: json['name'] as String?,
       address: json['address'] as String?,
@@ -15,8 +14,7 @@ BreweryJsonDto _$BreweryJsonDtoFromJson(Map<String, dynamic> json) =>
       country: json['country'] as String?,
     );
 
-Map<String, dynamic> _$BreweryJsonDtoToJson(BreweryJsonDto instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$BreweryJsonDtoToJson(BreweryJsonDto instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'address': instance.address,
