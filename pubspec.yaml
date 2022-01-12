@@ -29,3 +29,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: Ibeer
+      fonts:
+        - asset: assets/Ibeer.ttf # your font file name and the directory

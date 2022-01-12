@@ -1,5 +1,6 @@
 export 'theme.dart';
 export 'validation.dart';
+export 'ibeer_icons.dart';
 
 //dtos
 export 'dtos/meta_json_dto.dart';
