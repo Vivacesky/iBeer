@@ -24,6 +24,7 @@ class HomeViewModel extends ChangeNotifier {
   bool _onlyRated = false;
   List<BeerViewModel> _beers = [];
   ListStyle _listStyle = ListStyle.grid;
+  String searchValue = "";
 
   //getters
   bool get isLoading => _loading;
@@ -45,14 +46,7 @@ class HomeViewModel extends ChangeNotifier {
   //setters
   void setRated(bool onlyRated) {
     _onlyRated = onlyRated;
-    _beers = (_baseResponseViewModel?.data ?? []).where(
-      (b) {
-        if (_onlyRated && b.rating == null) {
-          return false;
-        }
-        return true;
-      },
-    ).toList();
+    filterBeers();
     notifyListeners();
   }
 
@@ -69,8 +63,7 @@ class HomeViewModel extends ChangeNotifier {
   void setResponse(BaseResponseViewModel<List<BeerViewModel>> response) {
     _baseResponseViewModel = response;
     if (exception != null) exception = null;
-    _beers = _baseResponseViewModel?.data ?? [];
-    _onlyRated = false;
+    filterBeers();
     notifyListeners();
   }
 
@@ -85,6 +78,12 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   void searchBeers(String value) {
+    searchValue = value;
+    filterBeers();
+    notifyListeners();
+  }
+
+  void filterBeers() {
     _beers = (_baseResponseViewModel?.data ?? [])
         .where(
           (b) {
@@ -94,9 +93,8 @@ class HomeViewModel extends ChangeNotifier {
             return true;
           },
         )
-        .where((element) => element.name.toLowerCase().contains(value.toLowerCase()))
+        .where((element) => element.name.toLowerCase().contains(searchValue.toLowerCase()))
         .toList();
-    notifyListeners();
   }
 
   //api

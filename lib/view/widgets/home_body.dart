@@ -33,7 +33,7 @@ class HomeBody extends StatelessWidget {
                           style: Theme.of(context).textTheme.headline1,
                         ),
                         Text(
-                          "${vm.meta?.totalCount} Results",
+                          "${vm.beers.length} Results",
                           style: Theme.of(context).textTheme.headline1,
                         ),
                       ],
@@ -117,6 +117,7 @@ class HomeBody extends StatelessWidget {
         vm.refreshBeers();
       },
       child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
         child: Column(
           children: [
             SizedBox(height: 3, child: vm.isRefreshing ? const LinearProgressIndicator() : const SizedBox()),
