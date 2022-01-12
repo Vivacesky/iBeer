@@ -95,7 +95,7 @@ class HomeBody extends StatelessWidget {
                       },
                     ),
                   ),
-                  trailing: Text(b.rating != null ? b.rating.toString() : "-"),
+                  trailing: Text(b.rating != null ? "${b.rating}/5" : "-"),
                   onTap: () {
                     Navigator.push(
                       context,
