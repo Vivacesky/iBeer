@@ -8,6 +8,11 @@ ThemeData get iBeerTheme {
       bodyText1: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
       caption: TextStyle(fontSize: 16.0),
     ),
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.black)),
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(Colors.white),

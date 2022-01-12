@@ -16,6 +16,8 @@ class BreweryViewModel extends Equatable {
     required this.country,
   });
 
+  String get fullAddress => "$address, $city, $country";
+
   @override
   List<Object> get props => [
         id,

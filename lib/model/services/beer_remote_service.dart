@@ -19,10 +19,20 @@ class BeerRemoteService extends CacheService implements BeerService {
   ) : super(sharedPreferences);
 
   @override
-  Future<BaseResponseJsonDto<BeerJsonDto>?> rateBeer(String beerId) async {
+  Future<BaseResponseJsonDto<BeerJsonDto>?> rateBeer(String beerId, int rating) async {
     if (await canRemote) {
-      final response = await client.put("$_baseUrl/beers/$beerId");
-      return response.data;
+      final body = {"rating": rating};
+      final response = await client.put(
+        "$_baseUrl/beers/$beerId",
+        data: jsonEncode(body),
+      );
+
+      return BaseResponseJsonDto.fromJson(
+        response.data,
+        (beer) {
+          return BeerJsonDto.fromJson(beer as Map<String, dynamic>);
+        },
+      );
     }
     //not supported offline
     throw NetworkException();

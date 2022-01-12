@@ -9,5 +9,5 @@ abstract class BeerService {
   Future<BaseResponseJsonDto<List<BreweryJsonDto>>?> getBreweries();
 
   /// PUT rate beer
-  Future<BaseResponseJsonDto<BeerJsonDto>?> rateBeer(String beerId);
+  Future<BaseResponseJsonDto<BeerJsonDto>?> rateBeer(String beerId, int rating);
 }

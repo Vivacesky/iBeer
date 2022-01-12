@@ -24,7 +24,7 @@ class BeerCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Center(child: Image.network(beerViewModel.thumbImageUrl)),
+                  Center(child: Hero(tag: beerViewModel.id, child: Image.network(beerViewModel.thumbImageUrl))),
                   const SizedBox(height: 12),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -36,10 +36,11 @@ class BeerCard extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
                         const SizedBox(height: 4),
-                        Text(
-                          beerViewModel.brewery.name,
-                          style: Theme.of(context).textTheme.caption,
-                        ),
+                        if (beerViewModel.brewery != null)
+                          Text(
+                            beerViewModel.brewery!.name,
+                            style: Theme.of(context).textTheme.caption,
+                          ),
                         const SizedBox(height: 4),
                         if (beerViewModel.rating != null) getIcons(beerViewModel.rating!)
                       ],
@@ -57,7 +58,7 @@ class BeerCard extends StatelessWidget {
   Widget getIcons(int rating) {
     List<Widget> icons = [];
     for (int i = 0; i < rating; i++) {
-      icons.add(const Icon(Icons.star, color: Colors.yellow, size: 16));
+      icons.add(const Icon(Icons.star, color: Colors.black, size: 16));
     }
     return Row(children: icons);
   }

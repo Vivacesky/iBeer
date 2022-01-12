@@ -85,7 +85,14 @@ class HomeBody extends StatelessWidget {
                         .map(
                           (b) => BeerCard(
                             beerViewModel: b,
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => BeerDetailScreen(beerViewModel: b),
+                                ),
+                              );
+                            },
                           ),
                         )
                         .toList()
@@ -96,7 +103,14 @@ class HomeBody extends StatelessWidget {
                       .map(
                         (b) => BeerCard(
                           beerViewModel: b,
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BeerDetailScreen(beerViewModel: b),
+                              ),
+                            );
+                          },
                         ),
                       )
                       .toList(),

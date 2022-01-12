@@ -8,7 +8,7 @@ class BeerViewModel extends Equatable {
   final int? rating;
   final String thumbImageUrl;
   final String imageUrl;
-  final BreweryViewModel brewery;
+  final BreweryViewModel? brewery;
 
   const BeerViewModel({
     required this.id,
@@ -16,7 +16,7 @@ class BeerViewModel extends Equatable {
     this.rating,
     required this.thumbImageUrl,
     required this.imageUrl,
-    required this.brewery,
+    this.brewery,
   });
 
   @override
@@ -43,7 +43,7 @@ class BeerViewModel extends Equatable {
       rating: rating,
       thumbImageUrl: validateNotNull("thumbImageUrl", thumbImageUrl),
       imageUrl: validateNotNull("imageUrl", imageUrl),
-      brewery: validateNotNull("brewery", brewery),
+      brewery: brewery,
     );
   }
 }

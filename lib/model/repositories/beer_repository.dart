@@ -7,7 +7,7 @@ abstract class BeerRepository {
 
   Future<Either<Object, BaseResponseViewModel<List<BreweryViewModel>>>> getBreweries();
 
-  Future<Either<Object, BaseResponseViewModel<BeerViewModel>>> rateBeer(String beerId);
+  Future<Either<Object, BaseResponseViewModel<BeerViewModel>>> rateBeer(String beerId, int rating);
 }
 
 class CachedBeerRepository implements BeerRepository {
@@ -35,7 +35,7 @@ class CachedBeerRepository implements BeerRepository {
       final result = await beerRemoteService.getBreweries();
       final mappedResponse = BaseResponseViewModel.orThrow(
         meta: mappedMeta(result?.meta),
-        data: result?.data?.map((b) => mappedBrewery(b)).toList(),
+        data: result?.data?.map((b) => mappedBrewery(b)!).toList(),
       );
       return Right(mappedResponse);
     } catch (ex) {
@@ -44,9 +44,9 @@ class CachedBeerRepository implements BeerRepository {
   }
 
   @override
-  Future<Either<Object, BaseResponseViewModel<BeerViewModel>>> rateBeer(String beerId) async {
+  Future<Either<Object, BaseResponseViewModel<BeerViewModel>>> rateBeer(String beerId, int rating) async {
     try {
-      final result = await beerRemoteService.rateBeer(beerId);
+      final result = await beerRemoteService.rateBeer(beerId, rating);
       final mappedResponse = BaseResponseViewModel.orThrow(
         meta: mappedMeta(result?.meta),
         data: mappedBeer(result?.data),
@@ -76,13 +76,15 @@ class CachedBeerRepository implements BeerRepository {
     );
   }
 
-  BreweryViewModel mappedBrewery(BreweryJsonDto? dto) {
+  /// This shouln't be nullable, but BE returns null brewery after the rating
+  BreweryViewModel? mappedBrewery(BreweryJsonDto? dto) {
+    if (dto == null) return null;
     return BreweryViewModel.orThrow(
-      id: dto?.id,
-      name: dto?.name,
-      address: dto?.address,
-      city: dto?.city,
-      country: dto?.country,
+      id: dto.id,
+      name: dto.name,
+      address: dto.address,
+      city: dto.city,
+      country: dto.country,
     );
   }
 }
